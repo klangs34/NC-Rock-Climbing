@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     // rating
     rating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: true
     },
     // location

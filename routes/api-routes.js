@@ -32,8 +32,57 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
+  //get all routes
+  app.get("/api/routes", function(req, res) {
+    db.Routes.findAll({}).then(function(allRoutes) {
+      res.json(allRoutes);
+    });
+  });
+
+  //get a route
+  app.get("/api/routes/:id", function(req, res) {
+    db.Routes.findAll({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(data) {
+      res.json(data);
+    });
+  });
+  
+    //get reviews on a route
+    app.get("/api/reviews", function(req, res) {
+      db.Reviews.findAll({})
+        .then(function(data) {
+          res.json(data)
+        })
+    });
+
+  //post a review on a route
+  app.post("/api/reviews/:id", passport.authenticate("local"), function(req, res) {
+    db.Reviews.create({
+      review: req.body.review,
+      routes_id: req.params.id,
+      user_id: req.body.id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+  // //post a route climbed
+  // app.post("/api/add-route-climbed/:id", passport.authenticate("local"), function(req, res) {
+  //   db.Reviews.create({
+  //     review: req.body.review,
+  //     routes_id: req.params.id,
+  //     user_id: req.body.id
+  //   })
+  //     .then(function(data) {
+  //       res.json(data)
+  //     })
+  // });
+
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
+  app.get("/api/user_data", passport.authenticate("local"), function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -41,9 +90,13 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       //send back reviews, favorites, routes climbed 
-      res.json({
-        email: req.user.email,
-        id: req.user.id
+      db.User.findAll({
+        where: {
+          id: req.params.id
+        },
+        include: [db.Reviews, db.Favorites, db.RoutesClimbed]
+      }).then(function(userData) {
+        res.json(userData);
       });
     }
   });
