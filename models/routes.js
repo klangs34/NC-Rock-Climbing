@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 // Creating our routes model
 module.exports = function (sequelize, DataTypes) {
-  var Routes = sequelize.define("Route", {
+  var Routes = sequelize.define("Routes", {
     //name
     name: {
       type: DataTypes.STRING,
