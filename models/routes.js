@@ -15,16 +15,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     // rating
     rating: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     // location
     lat: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    long: {
-      type: DataTypes.DECIMAL,
+    lon: {
+      type: DataTypes.DOUBLE,
       allowNull: false
     },
     // dangers
@@ -34,8 +34,18 @@ module.exports = function (sequelize, DataTypes) {
     },
     // rating
     distance: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DOUBLE,
       allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
     }
   });
   return Routes;
