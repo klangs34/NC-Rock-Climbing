@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "lindenplace1",
+    "password": "Jump#3joe",
     "database": "rockhill",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": "3306"
   },
   "test": {
     "username": "root",
