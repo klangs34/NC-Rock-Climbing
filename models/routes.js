@@ -23,17 +23,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    lon: {
-      type: DataTypes.DOUBLE,
-      allowNull: false
-    },
-    // dangers
-    dangers: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    // rating
-    distance: {
+    lng: {
       type: DataTypes.DOUBLE,
       allowNull: false
     },
