@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": "lindenplace1",
-    "database": "rockhill",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "omqq37hlv06iebiu",
+    "password": "process.env.PSWD",
+    "database": "yjm8z5extyofhacy",
+    "host": "k3xio06abqa902qt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql",
+    "port": "3306"
   },
   "test": {
     "username": "root",
