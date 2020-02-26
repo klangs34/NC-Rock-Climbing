@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Jump#3joe",
-    "database": "rockhill",
-    "host": "127.0.0.1",
+    "username": "omqq37hlv06iebiu",
+    "password": "process.env.PSWD",
+    "database": "yjm8z5extyofhacy",
+    "host": "k3xio06abqa902qt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "port": "3306"
   },
