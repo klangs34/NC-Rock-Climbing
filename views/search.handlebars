@@ -1,0 +1,35 @@
+
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+            <ul class="right">
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+        <!--The div element for the map -->
+        <div id="map" class="container"></div>
+
+    
+    <script>
+        // Initialize and add the map
+        function initMap(place, routes) {
+            const boone = { lat: 36.2168, lng: -81.6746 };
+            const map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: boone });
+            const marker = new google.maps.Marker({ position: boone, map: map });
+            const infowin = new google.maps.InfoWindow;
+            const infoWincontent = document.createElement("div");
+            infoWincontent.textContent = `Boone, NC  lat: ${boone.lat}, long: ${boone.lng}`;
+            marker.addListener("click", () => {
+                infowin.setContent(infoWincontent);
+                infowin.open(map, marker);
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM&callback=initMap">
+    </script>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/init.js"></script>
