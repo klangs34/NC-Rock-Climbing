@@ -1,39 +1,40 @@
 // Requiring our models and passport as we've configured it
-var db = require("../models");
-var passport = require("../config/passport");
+const db = require("../models");
+const passport = require("../config/passport");
+const axios = require("axios");
 
-module.exports = function(app) {
+module.exports = app => {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), function(req, res) {
+  app.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json(req.user);
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
-  app.post("/api/signup", function(req, res) {
+  app.post("/api/signup", (req, res) => {
     db.User.create({
       email: req.body.email,
       password: req.body.password
     })
-      .then(function() {
+      .then(() => {
         res.redirect(307, "/api/login");
       })
-      .catch(function(err) {
+      .catch((err) => {
         res.status(401).json(err);
       });
   });
 
   // Route for logging user out
-  app.get("/logout", function(req, res) {
+  app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
+  app.get("/api/user_data", (req, res) => {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -45,5 +46,84 @@ module.exports = function(app) {
         id: req.user.id
       });
     }
+  });
+  // get all routes
+  app.get("/api/routes", (req, res) => {
+
+  });
+  // find new routes from a given location
+  app.get("/api/routes/:place", (req, res) => {
+    const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
+    const mountainAPIKey = "200689747-d1e6e46b3dc0d8d175970060766a0430"
+    const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
+
+    axios.get(mapURL).then(data => {
+      const latitude = data.candidates[0].geometry.location.lat;
+      const longitude = data.candidates[0].geometry.location.lng;
+      const place = {latitude, longitude};
+      console.log(latitude);
+      console.log(longitude);
+      const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=10&key=${mountainAPIKey}`;
+      
+      axios.get(mountainURL).then(data => {
+        const routes = [];
+
+        data.routes.forEach(routeRaw => {
+          const route = {
+            name: routeRaw.name,
+            difficulty: routeRaw.rating,
+            rating: routeRaw.stars,
+            lat: routeRaw.latitude,
+            lng: routeRaw.longitude,
+          };
+
+          // $.post("/api/routes", route);
+
+          routes.push(route);
+        });
+
+        initMap(place, routes)
+
+        res.json({routes, place});
+      });
+    });
+  });
+  // add new routes
+  app.post("/api/routes", (req, res) => {
+    db.Routes.create(req.body, dbRoute => {
+      res.json(dbRoute);
+    });
+  });
+  // get all favorites
+  app.get("/api/favorites", (req, res) => {
+    
+  });
+  // get locations favorited by specific user
+  app.get("/api/favorites/user/:id", (req, res) => {
+
+  });
+  // get users who favorited specific location
+  app.get("/api/favorites/loc/:id", (req, res) => {
+
+  });
+  // add new favorite
+  app.post("/api/favorites/", (req, res) => {
+
+  });
+  // get all reviews
+  app.get("/api/reviews", (req, res) => {
+
+  });
+  // get users reviews
+  app.get("/api/review/user/:id", (req, res) => {
+
+  });
+  // get reviews of a location
+  app.get("/api/review/loc/:id", (req, res) => {
+    
+  });
+  // add new review
+  app.post("/api/reviews", (req, res) => {
+
   });
 };
