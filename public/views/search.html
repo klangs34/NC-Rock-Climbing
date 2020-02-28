@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        search page!
+    </div>
+    <div id="routes">
+
+    </div>
+
+     <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../js/materialize.js"></script>
+  <script src="../js/init.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.get('/api/routes')
+            .then(data => {
+                console.log(data)
+                var routeEl = $('<div>');
+                routeEl.append('<ul>');
+                var routeLi;
+                data.forEach((val, index) => {
+                    routeLi = $('<li>');
+                    routeLi.text(val.name);
+                    routeLi.attr('id', index);
+
+                    routeEl.append(routeLi);
+                });
+                $('#routes').append(routeEl);
+            })
+        })
+    </script>
+</body>
+</html>
