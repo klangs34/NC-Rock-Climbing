@@ -107,10 +107,6 @@ module.exports = app => {
       });
     }
   });
-  // get all routes
-  app.get("/api/routes", (req, res) => {
-
-  });
   // find new routes from a given location
   app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";

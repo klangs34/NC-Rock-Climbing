@@ -1,17 +1,4 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Parallax Template - Materialize</title>
-
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-<body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <ul class="right">
@@ -25,7 +12,7 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center amber-text text-lighten-2">RockHill</h1>
+        <h1 class="header center amber-text text-lighten-2 bannerfont">RockHill</h1>
         <div class="row center">
           <h5 class="header col s12 amber-text text-lighten-4">Find rock-climbing locations near you</h5>
         </div>
@@ -34,6 +21,8 @@
             <i class="material-icons prefix">textsms</i>
             <input type="text" id="city-input" class="white-text">
             <label for="city-input"></label>
+            <a class="waves-effect waves-light btn-small amber text-lighten-3">Search</a>
+
           </div>
         </div>
         <br><br>
@@ -49,14 +38,14 @@
 
       <!--   Icon Section   -->
       <div class="row">
-        <h4 class="header center amber-text">Favorited Routes</h4>
+        <h4 class="header center amber-text">Favorited Routes {{ test }}</h4>
         <div id="fav-row" class="row">
           <div class="col s12 m3">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
                 <span class="card-title">Route Card Example</span>
                 <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
+                  I am convenient because I require little markup to use effectively.</p>
               </div>
               <div class="card-action">
                 <a href="#">This is a link</a>
@@ -69,7 +58,7 @@
               <div class="card-content white-text">
                 <span class="card-title">Route Card Example</span>
                 <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
+                  I am convenient because I require little markup to use effectively.</p>
               </div>
               <div class="card-action">
                 <a href="#">This is a link</a>
@@ -82,7 +71,7 @@
               <div class="card-content white-text">
                 <span class="card-title">Route Card Example</span>
                 <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
+                  I am convenient because I require little markup to use effectively.</p>
               </div>
               <div class="card-action">
                 <a href="#">This is a link</a>
@@ -95,7 +84,7 @@
               <div class="card-content white-text">
                 <span class="card-title">Route Card Example</span>
                 <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
+                  I am convenient because I require little markup to use effectively.</p>
               </div>
               <div class="card-action">
                 <a href="#">This is a link</a>
@@ -121,6 +110,3 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/init.js"></script>
-
-  </body>
-</html>
