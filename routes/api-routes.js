@@ -64,6 +64,18 @@ module.exports = app => {
         })
     });
 
+     //search a city for a route
+     app.get("/search/:city", function(req, res) {
+      db.Routes.findAll({
+        Where: {
+          city: req.params.city
+        }
+      })
+        .then(function(data) {
+          res.json(data)
+        })
+    });
+
   //post a review on a route
   app.post("/api/reviews/:id", function(req, res) {
     let { review, user_id } = req.body
@@ -120,7 +132,7 @@ module.exports = app => {
       //send back reviews, favorites, routes climbed 
       db.User.findAll({
         where: {
-          id: req.params.id
+          id: req.user.id
         },
         include: [db.Reviews, db.Favorites, db.RoutesClimbed]
       }).then(function(userData) {
