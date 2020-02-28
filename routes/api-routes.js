@@ -141,10 +141,9 @@ module.exports = app => {
     axios.get(mapURL).then(data => {
       const latitude = data.candidates[0].geometry.location.lat;
       const longitude = data.candidates[0].geometry.location.lng;
-      const place = {latitude, longitude};
       console.log(latitude);
       console.log(longitude);
-      const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=10&key=${mountainAPIKey}`;
+      const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=20&maxResults=20&key=${mountainAPIKey}`;
       
       axios.get(mountainURL).then(data => {
         const routes = [];
@@ -156,16 +155,15 @@ module.exports = app => {
             rating: routeRaw.stars,
             lat: routeRaw.latitude,
             lng: routeRaw.longitude,
+            img: routeRaw.imgSmallMed
           };
-
-          // $.post("/api/routes", route);
 
           routes.push(route);
         });
 
-        initMap(place, routes)
+        initMap(latitude, longitude, routes)
 
-        res.json({routes, place});
+        res.json({routes, latitude, longitude});
       });
     });
   });
@@ -181,7 +179,7 @@ module.exports = app => {
   });
   // get locations favorited by specific user
   app.get("/api/favorites/user/:id", (req, res) => {
-    
+
   });
   // get users who favorited specific location
   app.get("/api/favorites/loc/:id", (req, res) => {
