@@ -33,17 +33,77 @@ module.exports = app => {
     res.redirect("/");
   });
 
+  //get all routes
+  app.get("/api/routes", function(req, res) {
+    db.Routes.findAll({}).then(function(allRoutes) {
+      res.json(allRoutes);
+    });
+  });
+
+  //get a route
+  app.get("/api/routes/:id", function(req, res) {
+    db.Routes.findAll({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(data) {
+      res.json(data);
+    });
+  });
+  
+    //get reviews on a route
+    app.get("/api/reviews/:id", function(req, res) {
+      db.Reviews.findAll({
+        Where: {
+          routes_id: req.params.id
+        },
+        include: [db.User, db.Routes]
+      })
+        .then(function(data) {
+          res.json(data)
+        })
+    });
+
+  //post a review on a route
+  app.post("/api/reviews/:id", function(req, res) {
+    let { review, user_id } = req.body
+    console.log( review, user_id );
+    db.Reviews.create({
+      review: review,
+      routes_id: req.params.id,
+      user_id: user_id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+  //post a route climbed
+  app.post("/api/add-route-climbed/:id", function(req, res) {
+    db.RoutesClimbed.create({
+      route_id: req.params.id,
+      user_id: req.body.id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
+  app.get("/api/user_data", passport.authenticate("local"), function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
+      //send back reviews, favorites, routes climbed 
+      db.User.findAll({
+        where: {
+          id: req.params.id
+        },
+        include: [db.Reviews, db.Favorites, db.RoutesClimbed]
+      }).then(function(userData) {
+        res.json(userData);
       });
     }
   });
@@ -52,7 +112,7 @@ module.exports = app => {
 
   });
   // find new routes from a given location
-  app.get("/api/routes/:place", (req, res) => {
+  app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
     const mountainAPIKey = "200689747-d1e6e46b3dc0d8d175970060766a0430"
     const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
