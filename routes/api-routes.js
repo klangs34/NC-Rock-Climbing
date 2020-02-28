@@ -77,6 +77,27 @@ module.exports = app => {
         res.json(data)
       })
   });
+  // get all routes a user as cleared
+  app.get("/api/route-climbed/user/:id", (req, res) => {
+    db.RoutesClimbed.findAll({
+      where: {
+        user_id: req.params.id
+      },
+      include: [db.User, db.Routes]
+    }).then(data => {
+      res.json(data);
+    })
+  });
+  app.get("/api/routes-climbed/loc/:id", (req, res) => {
+    db.RoutesClimbed.findAll({
+      where: {
+        route_id: req.params.id
+      },
+      include: [db.User, db.Routes]
+    }).then(data => {
+      res.json(data);
+    });
+  });
   //post a route climbed
   app.post("/api/add-route-climbed/:id", function(req, res) {
     db.RoutesClimbed.create({
@@ -106,6 +127,10 @@ module.exports = app => {
         res.json(userData);
       });
     }
+  });
+  // get all routes
+  app.get("/api/routes", (req, res) => {
+
   });
   // find new routes from a given location
   app.get("/api/routes/locate/:place", (req, res) => {
@@ -156,7 +181,7 @@ module.exports = app => {
   });
   // get locations favorited by specific user
   app.get("/api/favorites/user/:id", (req, res) => {
-
+    
   });
   // get users who favorited specific location
   app.get("/api/favorites/loc/:id", (req, res) => {
@@ -177,9 +202,5 @@ module.exports = app => {
   // get reviews of a location
   app.get("/api/review/loc/:id", (req, res) => {
     
-  });
-  // add new review
-  app.post("/api/reviews", (req, res) => {
-
   });
 };
