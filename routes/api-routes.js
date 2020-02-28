@@ -155,6 +155,7 @@ module.exports = app => {
             rating: routeRaw.stars,
             lat: routeRaw.latitude,
             lng: routeRaw.longitude,
+            img: routeRaw.imgSmallMed
           };
 
           routes.push(route);
