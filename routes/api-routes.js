@@ -8,6 +8,7 @@ module.exports = app => {
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
+    passport.session({})
     res.json(req.user);
   });
 
@@ -65,10 +66,10 @@ module.exports = app => {
     });
 
      //search a city for a route
-     app.get("/search/:city", function(req, res) {
+     app.get("/api/search/:city_id", function(req, res) {
       db.Routes.findAll({
         Where: {
-          city: req.params.city
+          city: req.params.city_id
         }
       })
         .then(function(data) {
@@ -78,12 +79,11 @@ module.exports = app => {
 
   //post a review on a route
   app.post("/api/reviews/:id", function(req, res) {
-    let { review, user_id } = req.body
-    console.log( review, user_id );
+    let { review } = req.body
     db.Reviews.create({
       review: review,
       routes_id: req.params.id,
-      user_id: user_id
+      user_id: req.user.id
     })
       .then(function(data) {
         res.json(data)
@@ -93,28 +93,41 @@ module.exports = app => {
   app.get("/api/route-climbed/user/:id", (req, res) => {
     db.RoutesClimbed.findAll({
       where: {
-        user_id: req.params.id
+        user_id: req.user.id
       },
       include: [db.User, db.Routes]
     }).then(data => {
       res.json(data);
     })
   });
-  app.get("/api/routes-climbed/loc/:id", (req, res) => {
-    db.RoutesClimbed.findAll({
-      where: {
-        route_id: req.params.id
-      },
-      include: [db.User, db.Routes]
-    }).then(data => {
-      res.json(data);
-    });
-  });
+
   //post a route climbed
   app.post("/api/add-route-climbed/:id", function(req, res) {
     db.RoutesClimbed.create({
       route_id: req.params.id,
-      user_id: req.body.id
+      user_id: req.user.id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+  //post a favorite route
+  app.post("/api/add-favorite-route/:route_id", function(req, res) {
+    db.Favorites.create({
+      route_id: req.params.route_id,
+      user_id: req.user.id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+  //get favorite routes
+  app.get("/api/get-favorite-routes/user/:user_id", function(req, res) {
+    db.Favorites.findAll({
+      where: {
+        user_id: req.params.user_id
+      },
+      include: [db.User, db.Routes]
     })
       .then(function(data) {
         res.json(data)
@@ -140,10 +153,7 @@ module.exports = app => {
       });
     }
   });
-  // get all routes
-  app.get("/api/routes", (req, res) => {
 
-  });
   // find new routes from a given location
   app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
