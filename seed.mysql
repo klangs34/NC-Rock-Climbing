@@ -7,3 +7,12 @@ Values
 ("Mountain bottom", "soft", 2.5, 1000982, 1229387, "chapel hill"),
 ("Mountain middle", "medium", 2.5, 1000982, 1229387, "rocky mount"),
 ("Mountain left", "easy", 2.5, 1000982, 1229387, "tarboro")
+
+insert into Routes (name, difficulty, rating, lat, lng, city, img)
+Values 
+("Stone Mountain", "hard", 2.5, 36.392, -81.047, "Elkin", "https://cdn-files.apstatic.com/climb/106089347_medium_1558646342.jpg"),
+("Moore's Wall Climbing", "tough", "3.5", 36.398, -80.292, "Winston Salem", "https://cdn-files.apstatic.com/climb/111870551_medium_1494308818.jpg"),
+("Linville Gorge", "easy", 1.5, 35.887, -81.885, "Asheville", "https://cdn-files.apstatic.com/climb/107451270_medium_1494190169.jpg"),
+("Rumbling Bald", "medium", 3.0, 35.449, -82.214, "Chimney Rock", "https://cdn-files.apstatic.com/climb/106328196_medium_1494098175.jpg"),
+("Looking Glass Rock", "easy", 2.0, 35.295, -82.788, "Brevard", "https://cdn-files.apstatic.com/climb/105874409_medium_1557936113.jpg"),
+("Laurel Knob", "hard", 4.2, 35.15, -83.056, "Cashiers Vallery", "https://cdn-files.apstatic.com/climb/106133418_medium_1558652908.jpg");
