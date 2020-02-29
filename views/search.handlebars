@@ -32,37 +32,36 @@
         <div id="map" class="container" style="margin-bottom: 40px;"></div>            
 
     
-    {{!-- <script>
-        // Initialize and add the map
-        function initMap(place, routes) {
-            const boone = { lat: 36.2168, lng: -81.6746 };
-            const map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: boone });
-            const marker = new google.maps.Marker({ position: boone, map: map });
-            const infowin = new google.maps.InfoWindow;
-            const infoWincontent = document.createElement("div");
-            infoWincontent.textContent = `Boone, NC  lat: ${boone.lat}, long: ${boone.lng}`;
-            marker.addListener("click", () => {
-                infowin.setContent(infoWincontent);
-                infowin.open(map, marker);
-            });
-        }
+     <div class="container">
+    <div class="section">
 
-    </script> --}}
+      <!--   Icon Section   -->
+      <div class="row">
+        <div id="search-results" class="row">
+          <!-- search results go here -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
     <script>
         // Initialize and add the map
         function initMap(lat, lng, routes) {
-        console.log(routes);
+        //console.log(routes);
         const map = new google.maps.Map(document.getElementById("map"), {zoom: 10, center: {lat: lat, lng: lng}});
-        console.log(map);
+        //console.log(map);
         const markers = [];
         const infoWindows = [];
 
-        routes.forEach((route, index) => {
-            const position = {lat: route.lat, lng: route.lng};
-            console.log(route);
-            console.log(position);
+        routes.forEach((route = [], index) => {
+            const position = {lat: route.lat || latitude, lng: route.lng || longitude};
+            //console.log(route);
+            //console.log(position);
             const marker = new google.maps.Marker({position: position, map: map, label: index});
             markers.push(marker);
+
+            console.log(route.img)
 
             const infoWincontent = document.createElement("div");
             const line1 = document.createElement("p");
@@ -72,16 +71,47 @@
 
             infoWincontent.appendChild(line1);
             infoWincontent.appendChild(line2);
+            
 
-            console.log(line1);
-            console.log(line2);
+            //console.log(line1);
+            //console.log(line2);
             const infowin = new google.maps.InfoWindow({content: infoWincontent});
-            console.log(markers);
+            //console.log(markers);
 
             marker.addListener("click", () => {
                 infowin.open(map, marker);
+                //infowin.appendChild(line3);
             });
+
+          //search result query
+          let imgURL;
+          if(route.img === ''){
+            imgURL = "https://via.placeholder.com/300.png/09f/fff"
+          } else {
+            imgURL = route.img;
+          }
+          const imgDiv = $('<div class="col s12 m3">').html(
+            `<div class="card">
+                <div class="card-image">
+                    <img src=${imgURL} style="min-width: 225px; min-height: 225px max-width: 225px; max-height: 225px;" />
+                    <span class="card-title">${route.name}</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                </div>
+                <div class="card-content">
+                    <p>Name: ${route.name} </p>
+                    <p>Difficulty: ${route.difficulty} </p>
+                    <p>Rating: ${route.rating} </p>
+                </div>
+            </div>`
+          )
+          
+        $('#search-results').append(imgDiv);
+
         });
+
+        $('#search-results').prepend('<h4 class="header center amber-text">Search Results</h4>');
+
+      }
 
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM&callback=initMap">
@@ -100,14 +130,34 @@
 
     <script>
         $('#city-input').on('keypress', function(e){
-            //e.preventDefault();
             var place = e.target.value;
             var keycode = (e.keyCode ? event.keyCode : event.Which);
-            if(keycode == '13') {
-            $.get(`/api/routes/locate/${place}`)
-                .then(data => {
-                    initMap(data);
-                })
-            }
-        })
+            if(keycode == '13') {      
+            $.get(`/api/routes/locate/${place}`, data => {
+              console.log(data);
+              const latitude = parseFloat(data.routes[0].lat);
+              const longitude = parseFloat(data.routes[0].lng);
+              //console.log(latitude);
+              //console.log(longitude);
+              const routes = [];
+              const routesRaw = data.routes;
+
+              routesRaw.forEach(routeRaw => {
+                  const route = {
+                      name: routeRaw.name,
+                      difficulty: routeRaw.difficulty,
+                      rating: routeRaw.rating,
+                      lat: routeRaw.lat,
+                      lng: routeRaw.lng,
+                      img: routeRaw.img
+                  };
+
+                  routes.push(route);
+              });
+              //console.log(routes);
+              initMap(latitude, longitude, routes);
+            });
+        };
+        
+      })
     </script>
