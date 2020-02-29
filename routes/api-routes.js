@@ -136,7 +136,7 @@ module.exports = app => {
   app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
     const mountainAPIKey = "200689747-d1e6e46b3dc0d8d175970060766a0430"
-    const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
+    const mapURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
 
     axios.get(mapURL).then(data => {
       const latitude = data.candidates[0].geometry.location.lat;

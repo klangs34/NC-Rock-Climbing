@@ -37,4 +37,6 @@ function initMap(lat, lng, routes) {
             infowin.close();
         })
     });
-}
+};
+
+module.exports = initMap;

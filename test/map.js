@@ -6,32 +6,48 @@ $(document).ready(() => {
         const map = new google.maps.Map(document.getElementById("map"), {zoom: 10, center: {lat: lat, lng: lng}});
         console.log(map);
         const markers = [];
-        const infoWindows = [];
 
         routes.forEach((route, index) => {
             const position = {lat: route.lat, lng: route.lng};
             console.log(route);
             console.log(position);
             const marker = new google.maps.Marker({position: position, map: map, label: index});
-            markers.push(marker);
 
             const infoWincontent = document.createElement("div");
             const line1 = document.createElement("p");
             const line2 = document.createElement("p");
+            const saveBtn = document.createElement("button");
+            const dropBtn = document.createElement("button");
             line1.textContent = route.name + ":  lat: " + route.lat + ", long: " + route.lng;
             line2.textContent = "difficulty: " + route.difficulty + ", rating: " + route.rating;
+            saveBtn.textContent = "Save site";
+            dropBtn.textContent = "Drop site";
 
             infoWincontent.appendChild(line1);
             infoWincontent.appendChild(line2);
+            infoWincontent.appendChild(saveBtn);
+            infoWincontent.appendChild(dropBtn);
 
             console.log(line1);
             console.log(line2);
             const infowin = new google.maps.InfoWindow({content: infoWincontent});
-            console.log(markers);
 
             marker.addListener("click", () => {
                 infowin.open(map, marker);
             });
+
+            saveBtn.addEventListener("click", () => {
+                markers.push(marker);
+                marker.setMap(null);
+                infowin.close();
+
+                console.log(markers);
+            });
+
+            dropBtn.addEventListener("click", () => {
+                marker.setMap(null);
+                infowin.close();
+            })
         });
     }
 
