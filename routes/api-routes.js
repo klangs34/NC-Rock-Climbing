@@ -122,10 +122,10 @@ module.exports = app => {
       })
   });
   //get favorite routes
-  app.get("/api/get-favorite-routes/user/:user_id", function(req, res) {
+  app.get("/api/get-favorite-routes", function(req, res) {
     db.Favorites.findAll({
       where: {
-        user_id: req.params.user_id
+        user_id: req.user.id
       },
       include: [db.User, db.Routes]
     })
