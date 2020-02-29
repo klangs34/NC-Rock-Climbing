@@ -61,3 +61,17 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
+
+    <script>
+        $('#city-input').on('keypress', function(e){
+            //e.preventDefault();
+            var place = e.target.value;
+            var keycode = (e.keyCode ? event.keyCode : event.Which);
+            if(keycode == '13') {
+            $.get(`/api/routes/locate/${place}`)
+                .then(data => {
+                    console.log(data);
+                })
+            }
+        })
+    </script>
