@@ -154,27 +154,25 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/routes/:place', (req, res) => {
-    db.Routes.findAll({
-      where: {
-        city: req.params.place
-      }
-    })
-      .then(function(data) {
-        res.json(data)
-      })
-  })
+  // app.get('/api/routes/locate/:place', (req, res) => {
+  //   db.Routes.findOne({
+  //     where: {
+  //       city: req.params.place
+  //     }
+  //   })
+  //     .then(function(data) {
+  //       res.json(data)
+  //     })
+  // })
 
   // find new routes from a given location
   app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
     const mountainAPIKey = "200689747-d1e6e46b3dc0d8d175970060766a0430"
-    const mapURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
+    const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
 
     axios.get(mapURL).then(data => {
-      console.log(data);
-      const latitude = data.candidates[0].geometry.location.lat;
-      const longitude = data.candidates[0].geometry.location.lng;
+
       console.log(latitude);
       console.log(longitude);
       const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=20&maxResults=20&key=${mountainAPIKey}`;
@@ -182,7 +180,7 @@ module.exports = app => {
       axios.get(mountainURL).then(data => {
         const routes = [];
 
-        data.routes.forEach(routeRaw => {
+        data.data.routes.forEach(routeRaw => {
           const route = {
             name: routeRaw.name,
             difficulty: routeRaw.rating,
@@ -195,7 +193,7 @@ module.exports = app => {
           routes.push(route);
         });
 
-        initMap(latitude, longitude, routes)
+        //initMap(latitude, longitude, routes)
 
         res.json({routes, latitude, longitude});
       });
