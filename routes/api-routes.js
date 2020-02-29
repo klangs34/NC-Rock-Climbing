@@ -172,6 +172,7 @@ module.exports = app => {
     const mapURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
 
     axios.get(mapURL).then(data => {
+      console.log(data);
       const latitude = data.candidates[0].geometry.location.lat;
       const longitude = data.candidates[0].geometry.location.lng;
       console.log(latitude);
