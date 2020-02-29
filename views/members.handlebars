@@ -2,8 +2,7 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <ul class="right">
-        <li><a href="/settings">Settings</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a class="teal-text" href="/logout">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -34,60 +33,11 @@
 
       <!--   Icon Section   -->
       <div class="row">
-        <h4 class="header center amber-text">Favorited Routes {{ test }}</h4>
+        <h4 class="header center amber-text">Favorited Routes</h4>
         <div id="fav-row" class="row">
-          <div class="col s12 m3">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
-                <span class="card-title">Route Card Example</span>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m3">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
-                <span class="card-title">Route Card Example</span>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m3">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
-                <span class="card-title">Route Card Example</span>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m3">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
-                <span class="card-title">Route Card Example</span>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
+          {{#each favorites}}
+          {{> card/route-card}}
+          {{/each}}
         </div>
       </div>
 
