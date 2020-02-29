@@ -25,11 +25,12 @@ module.exports = function(app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members", isAuthenticated, function(req, res) {
-    res.render("members", {});
+    res.render("members", {user: req.user});
   });
 
-  app.get("/search", isAuthenticated, function(req,res) {
-    res.render("search", {});
+  // Here we've add our isAuthenticated middleware to this route.
+  // If a user who is not logged in tries to access this route they will be redirected to the signup page
+  app.get("/search", isAuthenticated, function(req, res) {
+    res.render("search");
   });
-
 };

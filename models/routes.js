@@ -27,6 +27,15 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DOUBLE,
       allowNull: false
     },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    img: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "https://via.placeholder.com/300.png/09f/fff"
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

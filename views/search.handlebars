@@ -7,8 +7,29 @@
             </ul>
         </div>
     </nav>
+    <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center amber-text text-lighten-2 bannerfont">RockHill</h1>
+        <div class="row center">
+          <h5 class="header col s12 amber-text text-lighten-4">Find rock-climbing locations near you</h5>
+        </div>
+        <div class="row center">
+          <div class="input-field col s12 m4 offset-m4 amber-text">
+            <i class="material-icons prefix">textsms</i>
+            <input type="text" id="city-input" class="white-text">
+            <label for="city-input"></label>
+          </div>      
+        </div>
+        <br><br>
+      </div>
+    </div>
+    <div class="parallax"><img src="../img/banner.jpg" alt="Unsplashed background img 1"></div>
+  </div>
+
         <!--The div element for the map -->
-        <div id="map" class="container"></div>
+        <div id="map" class="container" style="margin-bottom: 40px;"></div>            
 
     
     <script>
@@ -25,9 +46,16 @@
                 infowin.open(map, marker);
             });
         }
+
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM&callback=initMap">
     </script>
+
+      <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+        </div>
+        <div class="parallax"><img src="../img/shiprock.jpg" alt="Unsplashed background img 2"></div>
+     </div>
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

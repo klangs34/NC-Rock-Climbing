@@ -12,11 +12,11 @@ module.exports = function (sequelize, DataTypes) {
           Reviews.belongsTo(models.User, {
           foreignKey: "user_id",
           onDelete: "cascade"
-        }, Reviews.belongsTo(models.Routes, {
-            foreignKey: "routes_id",
-            onDelete: "cascade"
-          })
-          )
+        }),
+        Reviews.belongsTo(models.Routes, {
+          foreignKey: "routes_id",
+          onDelete: "cascade"
+        });
       }
     return Reviews;
   };

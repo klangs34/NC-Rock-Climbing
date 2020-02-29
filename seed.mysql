@@ -1,0 +1,9 @@
+use yjm8z5extyofhacy;
+insert into Routes (name, difficulty, rating, lat, lng, city)
+Values 
+("Mountain Top", "hard", 2.5, 1000982, 1229387, "wilson"),
+("Mountain up", "impossible", 2.5, 1000982, 1229387, "raleigh"),
+("Mountain right", "powder puff", 2.5, 1000982, 1229387, "durham"),
+("Mountain bottom", "soft", 2.5, 1000982, 1229387, "chapel hill"),
+("Mountain middle", "medium", 2.5, 1000982, 1229387, "rocky mount"),
+("Mountain left", "easy", 2.5, 1000982, 1229387, "tarboro")
