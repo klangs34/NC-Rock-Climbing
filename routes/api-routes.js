@@ -172,7 +172,8 @@ module.exports = app => {
     const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
 
     axios.get(mapURL).then(data => {
-
+      const latitude = data.data.candidates[0].geometry.location.lat;
+      const longitude = data.data.candidates[0].geometry.location.lng;
       console.log(latitude);
       console.log(longitude);
       const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=20&maxResults=20&key=${mountainAPIKey}`;
