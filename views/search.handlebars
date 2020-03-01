@@ -1,64 +1,37 @@
-
-    <nav class="white" role="navigation">
-        <div class="nav-wrapper container">
-            <ul class="right">
-                <li><a href="/settings">Settings</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div id="index-banner" class="parallax-container">
+<nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+        <ul class="right">
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <h1 class="header center amber-text text-lighten-2 bannerfont">RockHill</h1>
-        <div class="row center">
-          <h5 class="header col s12 amber-text text-lighten-4">Find rock-climbing locations near you</h5>
+        <div class="container">
+            <br><br>
+            <h1 class="header center amber-text text-lighten-2 bannerfont">RockHill</h1>
+            <div class="row center">
+                <h5 class="header col s12 amber-text text-lighten-4">Find rock-climbing locations near you</h5>
+            </div>
+            <div class="row center">
+                <div class="input-field col s12 m4 offset-m4 amber-text">
+                    <i class="material-icons prefix">textsms</i>
+                    <input type="text" id="city-input" class="white-text">
+                    <label for="city-input"></label>
+                </div>
+            </div>
+            <br><br>
         </div>
-        <div class="row center">
-          <div class="input-field col s12 m4 offset-m4 amber-text">
-            <i class="material-icons prefix">textsms</i>
-            <input type="text" id="city-input" class="white-text">
-            <label for="city-input"></label>
-          </div>      
-        </div>
-        <br><br>
-      </div>
     </div>
     <div class="parallax"><img src="../img/banner.jpg" alt="Unsplashed background img 1"></div>
-  </div>
+</div>
 
-        <!--The div element for the map -->
-        <div id="map" class="container" style="margin-bottom: 40px;"></div>            
+<!--The div element for the map -->
+<div id="map" class="container" style="margin-bottom: 40px;"></div>
+<div id="search-row" class="row">
 
-    
-     <div class="container">
-    <div class="section">
 
-      <!--   Icon Section   -->
-      <div class="row">
-        <div id="search-results" class="row">
-          <!-- search results go here -->
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-    <script>
-        // Initialize and add the map
-        function initMap(lat, lng, routes) {
-        //console.log(routes);
-        const map = new google.maps.Map(document.getElementById("map"), {zoom: 10, center: {lat: lat, lng: lng}});
-        //console.log(map);
-        const markers = [];
-        const infoWindows = [];
-
-        routes.forEach((route = [], index) => {
-            const position = {lat: route.lat || latitude, lng: route.lng || longitude};
-            //console.log(route);
-            //console.log(position);
-            const marker = new google.maps.Marker({position: position, map: map, label: index});
             markers.push(marker);
 
             console.log(route.img)
@@ -73,10 +46,6 @@
             infoWincontent.appendChild(line2);
             
 
-            //console.log(line1);
-            //console.log(line2);
-            const infowin = new google.maps.InfoWindow({content: infoWincontent});
-            //console.log(markers);
 
             marker.addListener("click", () => {
                 infowin.open(map, marker);
@@ -109,55 +78,11 @@
 
         });
 
-        $('#search-results').prepend('<h4 class="header center amber-text">Search Results</h4>');
-
-      }
-
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM&callback=initMap">
     </script>
 
-      <div class="parallax-container valign-wrapper">
-        <div class="section no-pad-bot">
-        </div>
-        <div class="parallax"><img src="../img/shiprock.jpg" alt="Unsplashed background img 2"></div>
-     </div>
+<div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+    </div>
+    <div class="parallax"><img src="../img/shiprock.jpg" alt="Unsplashed background img 2"></div>
+</div>
 
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="../js/materialize.js"></script>
-    <script src="../js/init.js"></script>
-
-    <script>
-        $('#city-input').on('keypress', function(e){
-            var place = e.target.value;
-            var keycode = (e.keyCode ? event.keyCode : event.Which);
-            if(keycode == '13') {      
-            $.get(`/api/routes/locate/${place}`, data => {
-              console.log(data);
-              const latitude = parseFloat(data.routes[0].lat);
-              const longitude = parseFloat(data.routes[0].lng);
-              //console.log(latitude);
-              //console.log(longitude);
-              const routes = [];
-              const routesRaw = data.routes;
-
-              routesRaw.forEach(routeRaw => {
-                  const route = {
-                      name: routeRaw.name,
-                      difficulty: routeRaw.difficulty,
-                      rating: routeRaw.rating,
-                      lat: routeRaw.lat,
-                      lng: routeRaw.lng,
-                      img: routeRaw.img
-                  };
-
-                  routes.push(route);
-              });
-              //console.log(routes);
-              initMap(latitude, longitude, routes);
-            });
-        };
-        
-      })
-    </script>
