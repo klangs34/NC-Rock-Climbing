@@ -195,7 +195,7 @@ module.exports = app => {
         });
 
         //initMap(latitude, longitude, routes)
-
+        console.log(routes);
         res.json({routes, latitude, longitude});
       });
     });
