@@ -47,5 +47,12 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: new Date()
     }
   });
+
+  Routes.associate = function(models) {
+    Routes.belongsTo(models.User, {
+    foreignKey: "user_id",
+    onDelete: "cascade"
+  })
+  };
   return Routes;
 };
