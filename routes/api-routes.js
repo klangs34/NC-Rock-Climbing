@@ -121,6 +121,34 @@ module.exports = app => {
         res.json(data)
       })
   });
+  //save route
+  app.post("/api/save-route", function(req, res) {
+    db.Routes.create({
+      name: req.body.name,
+      difficulty: req.body.difficulty,
+      rating: req.body.rating,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      city: req.body.city,
+      img: req.body.img,
+      user_id: req.user.id
+    })
+      .then(function(data) {
+        res.json(data)
+      })
+  });
+
+  app.delete("/api/delete-route/:route_id", async function(req, res) {
+    // Delete everyone named "Jane"
+    await db.Routes.destroy({
+      where: {
+        id: req.params.route_id
+      }
+    }).then(function(data) {
+       console.log(data + 'deleted');
+      })
+  });
+
   //get favorite routes
   app.get("/api/get-favorite-routes", function(req, res) {
     db.Favorites.findAll({
@@ -169,6 +197,7 @@ module.exports = app => {
   app.get("/api/routes/locate/:place", (req, res) => {
     const googleAPIKey = "AIzaSyDa0VYRLVZSiVi2MxcaF-2iORHEBcV0dHM";
     const mountainAPIKey = "200689747-d1e6e46b3dc0d8d175970060766a0430"
+    //const mapURL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
     const mapURL = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${req.params.place}&inputtype=textquery&fields=geometry&key=${googleAPIKey}`;
 
     axios.get(mapURL).then(data => {
@@ -206,32 +235,32 @@ module.exports = app => {
       res.json(dbRoute);
     });
   });
-  // get all favorites
-  app.get("/api/favorites", (req, res) => {
+  // // get all favorites
+  // app.get("/api/favorites", (req, res) => {
     
-  });
-  // get locations favorited by specific user
-  app.get("/api/favorites/user/:id", (req, res) => {
+  // });
+  // // get locations favorited by specific user
+  // app.get("/api/favorites/user/:id", (req, res) => {
 
-  });
-  // get users who favorited specific location
-  app.get("/api/favorites/loc/:id", (req, res) => {
+  // });
+  // // get users who favorited specific location
+  // app.get("/api/favorites/loc/:id", (req, res) => {
 
-  });
-  // add new favorite
-  app.post("/api/favorites/", (req, res) => {
+  // });
+  // // add new favorite
+  // app.post("/api/favorites/", (req, res) => {
 
-  });
-  // get all reviews
-  app.get("/api/reviews", (req, res) => {
+  // });
+  // // get all reviews
+  // app.get("/api/reviews", (req, res) => {
 
-  });
-  // get users reviews
-  app.get("/api/review/user/:id", (req, res) => {
+  // });
+  // // get users reviews
+  // app.get("/api/review/user/:id", (req, res) => {
 
-  });
-  // get reviews of a location
-  app.get("/api/review/loc/:id", (req, res) => {
+  // });
+  // // get reviews of a location
+  // app.get("/api/review/loc/:id", (req, res) => {
     
-  });
+  // });
 };
