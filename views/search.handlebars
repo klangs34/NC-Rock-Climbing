@@ -2,8 +2,8 @@
     <nav class="white" role="navigation">
         <div class="nav-wrapper container">
             <ul class="right">
-                <li><a href="/settings">Settings</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a class="teal-text" href="/members">Home</a></li>
+                <li><a class="teal-text" href="/logout">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -57,7 +57,7 @@
         type: 'DELETE',
         success: function(result) {
             // Do something with the result
-            console.log(result);
+            //console.log(result);
         }
         });
       }
@@ -106,12 +106,24 @@
 
           //search result query
           let imgURL;
+          let imgDiv;
+          let found = false;
           if(route.img === ''){
             imgURL = "https://via.placeholder.com/255.png/09f/fff"
           } else {
             imgURL = route.img;
           }
-          const imgDiv = $('<div id="imgDiv" class="col s12 m3" style="min-width: 250px; min-height: 400px; max-width: 250px; max-height: 400px;">').html(
+          routesArr.forEach(val => {
+            if(val.lat === route.lat && val.lng === route.lng && val.name === route.name) {
+              //console.log(val.lat, route.lat);
+              //console.log(val.lng, route.lng);
+              found = true;
+            };
+          });
+            //only display the routes that haven't been saved
+            if(!found) {
+            //console.log("false")
+            imgDiv = $('<div id="imgDiv" class="col s12 m3" style="min-width: 245px; min-height: 450px; max-width: 245px; max-height: 450px;">').html(
             `<div class="card">
                 <div class="card-image">
                     <img src=${imgURL}  style="min-width: 225px; min-height: 225px; max-width: 225px; max-height: 225px;" />
@@ -129,9 +141,8 @@
                 </div>
             </div>`
           )
-          
-        $('#search-results').append(imgDiv);
-
+             $('#search-results').append(imgDiv);
+          }
         });
 
         $('#search-results').prepend('<h4 class="header center amber-text">Search Results</h4>');
@@ -180,7 +191,7 @@
         };
         
       })
-        var dataId;
+       var dataId;
        $(document).on('click', '.material-icons', (e) => {
          //console.log(e.target.getAttribute('data-name'));
          var state = e.target.textContent;
@@ -194,7 +205,7 @@
           city: place,
           img: e.target.getAttribute('data-img')
         }).then(data => {
-          console.log(data);
+          //console.log(data);
           e.target.textContent = "beenhere"
           dataId = data.id;
         })
@@ -202,6 +213,11 @@
           deleteSavedRoute(dataId);
           e.target.textContent = "add";
         }
+      })
+      var routesArr;
+      $(document).ready(() => {
+      //get saved routes
+      $.get('/api/user_data').then(data => routesArr = data)
       })
 
       

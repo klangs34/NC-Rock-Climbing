@@ -34,9 +34,9 @@
 
       <!--   Icon Section   -->
       <div class="row">
-        <h4 class="header center amber-text">Favorited Routes</h4>
+        <h4 class="header center amber-text">Saved Routes</h4>
         <div id="fav-row" class="row">
-          {{#each favorites}}
+          {{#each savedData}}
           {{> card/route-card}}
           {{/each}}
         </div>
@@ -57,3 +57,24 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/init.js"></script>
+
+  <script>
+
+       function deleteSavedRoute(id) {
+        $.ajax({
+        url: '/api/delete-route/' + id,
+        type: 'DELETE',
+        success: function(result) {
+            // Do something with the result
+            console.log(result);
+        }
+        });
+      };
+
+         $(document).on('click', '.material-icons', (e) => {
+         //console.log(e.target.getAttribute('data-id'));
+         const routeId = e.target.getAttribute('data-id');
+          deleteSavedRoute(routeId);
+          $(location).attr('href', '/members');
+      })
+    </script>

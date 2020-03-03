@@ -1,13 +1,14 @@
 
-    <div class="col s12 m3">
+    <div class="col s12 m3" style="min-width: 250px; min-height: 400px; max-width: 250px; max-height: 400px;">
         <div class="card">
             <div class="card-image">
-                <img src="{{ img }}">
-                <span class="card-title">{{ name }}</span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                <img src="{{ dataValues.img }}"  style="min-width: 225px; min-height: 225px; max-width: 225px; max-height: 225px;">
+                <span class="card-title">{{ dataValues.name }}</span>
+                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons" data-id={{dataValues.id}}>beenhere</i></a>
             </div>
             <div class="card-content">
-                <p>Rating: {{ rating }} </p>
+                <p>Difficulty: {{ dataValues.difficulty }} </p>
+                <p>Rating: {{ dataValues.rating }} </p>
             </div>
         </div>
     </div>
