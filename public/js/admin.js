@@ -13,7 +13,7 @@ var debounce = function (fn, duration) {
   var timeout;
   return function () {
     var args = Array.prototype.slice.call(arguments),
-        ctx = this;
+      ctx = this;
 
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -37,7 +37,7 @@ var chartExists = function(cardChart) {
   } else {
     return false;
   }
-}
+};
 
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
@@ -63,11 +63,11 @@ function randomBar(date, lastClose) {
 }
 
 function getRandomData(date, count) {
-  var dateFormat = 'MMMM DD YYYY';
+  var dateFormat = "MMMM DD YYYY";
   var date = moment(date, dateFormat);
   var data = [randomBar(date, 30)];
   while (data.length < count) {
-    date = date.clone().add(1, 'd');
+    date = date.clone().add(1, "d");
     if (date.isoWeekday() <= 5) {
       data.push(randomBar(date, data[data.length - 1].c));
     }
@@ -87,7 +87,7 @@ var chartColorPink = "rgb(255,64,129)";
 var chartColorGreen = "rgb(112,190,116)";
 
 function rgbToRgba(rgb, alpha) {
-  return rgb.replace(')', ', ' + alpha + ')').replace('rgb', 'rgba');
+  return rgb.replace(")", ", " + alpha + ")").replace("rgb", "rgba");
 }
 function componentToHex(c) {
   var hex = c.toString(16);
@@ -109,22 +109,22 @@ function rgbToHex(rgb) {
  *************************/
 var tooltipsOpts = {
   enabled: false,
-  mode: 'index',
+  mode: "index",
   intersect: false,
-  backgroundColor: '#fff',
+  backgroundColor: "#fff",
   cornerRadius: 2,
   caretSize: 0,
   xPadding: 12,
   yPadding: 12,
   custom: function(tooltipModel) {
     // Tooltip Element
-    var tooltipEl = document.getElementById('chartjs-tooltip');
+    var tooltipEl = document.getElementById("chartjs-tooltip");
 
     // Create element on first render
     if (!tooltipEl) {
-      tooltipEl = document.createElement('div');
-      tooltipEl.id = 'chartjs-tooltip';
-      tooltipEl.innerHTML = "<table></table>"
+      tooltipEl = document.createElement("div");
+      tooltipEl.id = "chartjs-tooltip";
+      tooltipEl.innerHTML = "<table></table>";
       document.body.appendChild(tooltipEl);
     }
 
@@ -135,11 +135,11 @@ var tooltipsOpts = {
     }
 
     // Set caret Position
-    tooltipEl.classList.remove('above', 'below', 'no-transform');
+    tooltipEl.classList.remove("above", "below", "no-transform");
     if (tooltipModel.yAlign) {
       tooltipEl.classList.add(tooltipModel.yAlign);
     } else {
-      tooltipEl.classList.add('no-transform');
+      tooltipEl.classList.add("no-transform");
     }
 
     function getBody(bodyItem) {
@@ -151,37 +151,37 @@ var tooltipsOpts = {
       var titleLines = tooltipModel.title || [];
       var bodyLines = tooltipModel.body.map(getBody);
       var footerLines = tooltipModel.footer;
-      var innerHtml = '<thead>';
+      var innerHtml = "<thead>";
 
       titleLines.forEach(function(title) {
-        innerHtml += '<tr><th>' + title + '</th></tr>';
+        innerHtml += "<tr><th>" + title + "</th></tr>";
       });
-      innerHtml += '</thead><tbody>';
+      innerHtml += "</thead><tbody>";
 
       bodyLines.forEach(function(body, i) {
         var colors = tooltipModel.labelColors[i];
-        var span = '';
+        var span = "";
 
         // Add color key if more than 1 dataset
         if (bodyLines.length > 1) {
           var style =
-          span = '<span class="chartjs-tooltip-key" style="background:' + colors.backgroundColor + ';"></span>';
+          span = "<span class=\"chartjs-tooltip-key\" style=\"background:" + colors.backgroundColor + ";\"></span>";
         }
 
-        innerHtml += '<tr><td>' + span + body + '</td></tr>';
+        innerHtml += "<tr><td>" + span + body + "</td></tr>";
       });
 
       if (footerLines.length) {
-        innerHtml += '<tfoot>';
+        innerHtml += "<tfoot>";
         footerLines.forEach(function(footer, i) {
-          innerHtml += '<tr><td>' + footer + '</td></tr>'
+          innerHtml += "<tr><td>" + footer + "</td></tr>";
         });
-        innerHtml += '</tfoot>';
+        innerHtml += "</tfoot>";
       }
 
-      innerHtml += '</tbody>';
+      innerHtml += "</tbody>";
 
-      var tableRoot = tooltipEl.querySelector('table');
+      var tableRoot = tooltipEl.querySelector("table");
       tableRoot.innerHTML = innerHtml;
     }
 
@@ -191,11 +191,11 @@ var tooltipsOpts = {
 
     // Display, position, and set styles for font
     tooltipEl.style.opacity = 1;
-    tooltipEl.style.left = $(window).scrollLeft() + position.left + tooltipModel.caretX + 20 + 'px';
-    tooltipEl.style.top = $(window).scrollTop() + position.top + tooltipModel.caretY + 'px';
+    tooltipEl.style.left = $(window).scrollLeft() + position.left + tooltipModel.caretX + 20 + "px";
+    tooltipEl.style.top = $(window).scrollTop() + position.top + tooltipModel.caretY + "px";
     tooltipEl.style.fontSize = tooltipModel.fontSize;
     tooltipEl.style.fontStyle = tooltipModel._fontStyle;
-    tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+    tooltipEl.style.padding = tooltipModel.yPadding + "px " + tooltipModel.xPadding + "px";
   }
 
 };
@@ -224,7 +224,7 @@ var areaOptions = {
 var flushChartOptions = Object.assign({}, areaOptions);
 flushChartOptions.hover = {
   hover: {
-    mode: 'index',
+    mode: "index",
     intersect: false
   }
 };
@@ -259,8 +259,8 @@ var percentageFooterCallback = function(tooltipItems, data) {
   });
 
   var perc = ((val / sum) * 100).toFixed(1);
-  return perc + '%';
-}
+  return perc + "%";
+};
 
 var percentageStackedFooterCallback = function(tooltipItems, data) {
   var label = "";
@@ -274,19 +274,19 @@ var percentageStackedFooterCallback = function(tooltipItems, data) {
   });
 
   var perc = ((val / sum) * 100).toFixed(1);
-  return perc + '%';
-}
+  return perc + "%";
+};
 
 // Doughnut callbacks
 var doughnutLegendCallback = function(chart) {
-  var $legend = $('<div class="chart-legend"></div>');
-  var $ul = $('<ul></ul>');
+  var $legend = $("<div class=\"chart-legend\"></div>");
+  var $ul = $("<ul></ul>");
   var labels = chart.data.labels;
   if (chart.data.datasets.length) {
     for (var i=0; i<chart.data.datasets[0].data.length; i++) {
       var val = chart.data.datasets[0].data[i];
       var color = chart.data.datasets[0].backgroundColor[i];
-      var $li = $('<li><span style="background-color: ' + color + '" class="dot"></span><span class="label">' + labels[i] + '</span><span class="value">' + val + '</span></li>');
+      var $li = $("<li><span style=\"background-color: " + color + "\" class=\"dot\"></span><span class=\"label\">" + labels[i] + "</span><span class=\"value\">" + val + "</span></li>");
       $ul.append($li);
     }
   }
@@ -296,7 +296,7 @@ var doughnutLegendCallback = function(chart) {
 };
 
 var percDoughnutLegendCallback = function(chart) {
-  $legend = $('<div class="perc-doughnut-legend"></div>');
+  $legend = $("<div class=\"perc-doughnut-legend\"></div>");
   if (chart.data.datasets.length) {
     var total = 0;
     var maxPerc = 0;
@@ -310,26 +310,26 @@ var percDoughnutLegendCallback = function(chart) {
       }
       total += val;
     }
-    $legend.text((maxPerc / total * 100).toFixed(1) + '%');
-    $legend.css('color', maxColor);
+    $legend.text((maxPerc / total * 100).toFixed(1) + "%");
+    $legend.css("color", maxColor);
   }
   return $legend;
 };
 
 // Legend callbacks
 var cardLegendCallback = function(chart) {
-  var $legend = $('<div class="card-metrics"></div>');
+  var $legend = $("<div class=\"card-metrics\"></div>");
   for (var i=0; i<chart.data.datasets.length; i++) {
     var dataset = chart.data.datasets[i];
-    var $metric = $('<div class="card-metric colored waves-effect waves-light active"></div>');
+    var $metric = $("<div class=\"card-metric colored waves-effect waves-light active\"></div>");
     if (dataset.borderColor) {
       $metric.css({backgroundColor: dataset.borderColor });
     }
-    var $title = $('<div class="card-metric-title">' + dataset.label + '</div>');
+    var $title = $("<div class=\"card-metric-title\">" + dataset.label + "</div>");
     var sum = dataset.data.reduce(function(total, num) {
       return total + num;
     });
-    var $value = $('<div class="card-metric-value">' + sum + '</div>');
+    var $value = $("<div class=\"card-metric-value\">" + sum + "</div>");
     $metric.append($title);
     $metric.append($value);
     $legend.append($metric);
@@ -338,12 +338,12 @@ var cardLegendCallback = function(chart) {
 };
 
 var tabLegendCallback = function(chart) {
-  var $legend = $('<div class="card-tabs"></div>');
-  var $tabs = $('<ul class="tabs tabs-fixed-width tabs-transparent"></ul>');
+  var $legend = $("<div class=\"card-tabs\"></div>");
+  var $tabs = $("<ul class=\"tabs tabs-fixed-width tabs-transparent\"></ul>");
   for (var i=0; i<chart.data.datasets.length; i++) {
     var dataset = chart.data.datasets[i];
-    var $tab = $('<li class="tab"></li>');
-    var $title = $('<a href="#">' + dataset.label + '</a>');
+    var $tab = $("<li class=\"tab\"></li>");
+    var $title = $("<a href=\"#\">" + dataset.label + "</a>");
     $tab.append($title);
     $tabs.append($tab);
   }
@@ -362,7 +362,7 @@ var tabLegendCallback = function(chart) {
      * Materialize Init *
      ********************/
 
-    $('.card-toolbar-actions .dropdown-trigger').dropdown({
+    $(".card-toolbar-actions .dropdown-trigger").dropdown({
       constrainWidth: false,
     });
 
@@ -373,10 +373,10 @@ var tabLegendCallback = function(chart) {
      * Masonry Init *
      ****************/
 
-    var $masonry = $('.masonry')
+    var $masonry = $(".masonry");
     $masonry.masonry({
-      itemSelector: '.masonry > .col',
-      columnWidth: '.m6'
+      itemSelector: ".masonry > .col",
+      columnWidth: ".m6"
     });
 
     /* End Masonry Init */
@@ -387,17 +387,17 @@ var tabLegendCallback = function(chart) {
      ********************/
 
     // Global defaults
-    Chart.scaleService.updateScaleDefaults('linear', {
-      position: 'right'
+    Chart.scaleService.updateScaleDefaults("linear", {
+      position: "right"
     });
 
-    Chart.scaleService.updateScaleDefaults('category', {
+    Chart.scaleService.updateScaleDefaults("category", {
       gridLines: {
         display: false
       }
     });
-    Chart.defaults.scale.gridLines.color = 'rgba(0,0,0,.08)';
-    Chart.defaults.scale.gridLines.zeroLineColor = 'rgba(0,0,0,.08)';
+    Chart.defaults.scale.gridLines.color = "rgba(0,0,0,.08)";
+    Chart.defaults.scale.gridLines.zeroLineColor = "rgba(0,0,0,.08)";
 
     // Chart.defaults.bar.categoryPercentage = 1;
     Chart.defaults.bar.scales.xAxes[0].barPercentage = .85;
@@ -412,11 +412,11 @@ var tabLegendCallback = function(chart) {
     Chart.defaults.global.elements.point.radius = 0;
     Chart.defaults.global.elements.point.borderWidth = 20;
     Chart.defaults.global.elements.point.hoverRadius = 5;
-    Chart.defaults.global.elements.point.backgroundColor = 'rgb(0,0,0)';
-    Chart.defaults.global.elements.point.borderColor = 'rgba(0,0,0,.1)';
+    Chart.defaults.global.elements.point.backgroundColor = "rgb(0,0,0)";
+    Chart.defaults.global.elements.point.borderColor = "rgba(0,0,0,.1)";
 
     // Line styles
-    Chart.defaults.global.elements.line.borderColor = 'rgb(0,0,0)';
+    Chart.defaults.global.elements.line.borderColor = "rgb(0,0,0)";
 
     // Area styles
     Chart.defaults.radar.elements.point = {
@@ -425,18 +425,18 @@ var tabLegendCallback = function(chart) {
       borderWidth: .0001,
       hoverRadius: 4,
       hoverBorderWidth: .0001,
-    }
+    };
     Chart.defaults.radar.elements.line.tension = .15;
     Chart.defaults.radar.elements.line.borderWidth = 0.0001;
     Chart.defaults.radar.scale.ticks = {
       fontSize: 11
-    }
+    };
     Chart.defaults.radar.scale.pointLabels = {
       fontSize: 12
-    }
-    Chart.scaleService.updateScaleDefaults('radialLinear', {
+    };
+    Chart.scaleService.updateScaleDefaults("radialLinear", {
       gridLines: {
-        color: 'rgba(0,0,0,.04)'
+        color: "rgba(0,0,0,.04)"
       }
     });
 
@@ -445,9 +445,9 @@ var tabLegendCallback = function(chart) {
     // Set default animations
     Chart.defaults.global.animation = Object.assign(Chart.defaults.global.animation, {
       duration: 700,
-      easing: 'easeInOutQuint',
+      easing: "easeInOutQuint",
       onComplete: function() {
-        $masonry.masonry('layout');
+        $masonry.masonry("layout");
       }
     });
 
@@ -459,11 +459,11 @@ var tabLegendCallback = function(chart) {
     // Line chart
     var ctx = $("#line-chart");
     var myLineChart = new Chart(ctx, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-          label: '# of Votes',
+          label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
           lineTension: 0,
           fill: 0
@@ -471,7 +471,7 @@ var tabLegendCallback = function(chart) {
       },
       options: {
         hover: {
-          mode: 'index',
+          mode: "index",
           intersect: false
         },
         maintainAspectRatio: false,
@@ -481,34 +481,34 @@ var tabLegendCallback = function(chart) {
     // Main Toggle Line Chart
     var toggleData = {
       revenue: {
-        label: 'Revenue',
+        label: "Revenue",
         data: [1200, 940, 1340, 1440, 420, 1100, 670]
       },
       users: {
-        label: 'Users',
+        label: "Users",
         data: [1252, 872, 543, 1902, 1334, 998, 1640]
       },
       ctr: {
-        label: 'CTR',
+        label: "CTR",
         data: [.18, .24, .33, .12, .23, .2, .23]
       }
-    }
+    };
 
     var ctx = $("#main-toggle-line-chart");
     var myLineChart = new Chart(ctx, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: [{
-          label: toggleData['revenue'].label,
-          data: toggleData['revenue'].data,
+          label: toggleData.revenue.label,
+          data: toggleData.revenue.data,
           lineTension: 0,
           fill: 0
         }]
       },
       options: {
         hover: {
-          mode: 'index',
+          mode: "index",
           intersect: false
         },
         maintainAspectRatio: false,
@@ -516,49 +516,49 @@ var tabLegendCallback = function(chart) {
     });
 
     $("#main-toggle-line-chart")
-      .closest('.card').find('.card-metrics')
-      .on('click', '.card-metric', function(e) {
+      .closest(".card").find(".card-metrics")
+      .on("click", ".card-metric", function(e) {
         e.stopPropagation();
-        var card = $(this).closest('.card');
-        var cardChart = card.find($('.card-chart'));
+        var card = $(this).closest(".card");
+        var cardChart = card.find($(".card-chart"));
 
         if (cardChart.length) {
           var chart = chartExists(cardChart);
-          var metric = $(this).attr('data-metric');
+          var metric = $(this).attr("data-metric");
 
           if (!!chart && toggleData.hasOwnProperty(metric)) {
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
             var index = $(this).index();
-            var isActive = $(this).hasClass('active');
+            var isActive = $(this).hasClass("active");
 
             chart.data.datasets[0].data = toggleData[metric].data;
             chart.data.datasets[0].label = toggleData[metric].label;
             chart.update();
           }
         }
-    });
+      });
 
 
     var compareLine = $("#compare-line-chart");
     var compareLineChart = new Chart(compareLine, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-          label: '# of Votes',
+          label: "# of Votes",
           data: [12, 19, 3, 5, 2, 3],
-          borderColor: 'rgb(244,67,54)',
-          pointBackgroundColor: 'rgb(244,67,54)',
-          pointBorderColor: 'rgba(244,67,54,.1)',
+          borderColor: "rgb(244,67,54)",
+          pointBackgroundColor: "rgb(244,67,54)",
+          pointBorderColor: "rgba(244,67,54,.1)",
           lineTension: 0,
           fill: false
         },{
-          label: '# of Votes',
+          label: "# of Votes",
           data: [5, 12, 18, 9, 11, 14],
-          borderColor: 'rgb(33,150,243)',
-          pointBackgroundColor: 'rgb(33,150,243)',
-          pointBorderColor: 'rgba(33,150,243,.1)',
+          borderColor: "rgb(33,150,243)",
+          pointBackgroundColor: "rgb(33,150,243)",
+          pointBorderColor: "rgba(33,150,243,.1)",
           lineTension: 0,
           fill: false,
           hidden: true
@@ -566,7 +566,7 @@ var tabLegendCallback = function(chart) {
       },
       options: {
         hover: {
-          mode: 'index',
+          mode: "index",
           intersect: false
         },
       }
@@ -574,17 +574,17 @@ var tabLegendCallback = function(chart) {
 
 
     // Card metric chart toggle
-    $(document).on('click', '.card-metric', function() {
-      var card = $(this).closest('.card');
-      var cardChart = card.find($('.card-chart'));
+    $(document).on("click", ".card-metric", function() {
+      var card = $(this).closest(".card");
+      var cardChart = card.find($(".card-chart"));
 
       if (cardChart.length) {
         var chart = chartExists(cardChart);
 
         if (!!chart) {
-          $(this).toggleClass('active');
+          $(this).toggleClass("active");
           var index = $(this).index();
-          var isActive = $(this).hasClass('active');
+          var isActive = $(this).hasClass("active");
 
           chart.data.datasets[index].hidden = !isActive;
           chart.update();
@@ -593,9 +593,9 @@ var tabLegendCallback = function(chart) {
     });
 
     // Generic card metric interactivity
-    $(document).on('click', '.tab', function() {
-      var card = $(this).closest('.card');
-      var cardChart = card.find($('.card-chart'));
+    $(document).on("click", ".tab", function() {
+      var card = $(this).closest(".card");
+      var cardChart = card.find($(".card-chart"));
 
       if (cardChart.length) {
         var chart = chartExists(cardChart);
@@ -619,108 +619,108 @@ var tabLegendCallback = function(chart) {
 
     var tabLegendLine = $("#tab-legend-line-chart");
     var tabLegendLineChart = new Chart(tabLegendLine, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-          label: 'Day',
+          label: "Day",
           data: [12, 19, 3, 5, 2, 3],
-          borderColor: '#ffffff',
-          pointBackgroundColor: '#ffffff',
-          pointBorderColor: 'rgba(255,255,255,.2)',
+          borderColor: "#ffffff",
+          pointBackgroundColor: "#ffffff",
+          pointBorderColor: "rgba(255,255,255,.2)",
           lineTension: 0,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           fill: false
         },{
-          label: 'Month',
+          label: "Month",
           data: [5, 12, 18, 9, 11, 14],
-          borderColor: '#ffffff',
-          pointBackgroundColor: '#ffffff',
-          pointBorderColor: 'rgba(255,255,255,.2)',
+          borderColor: "#ffffff",
+          pointBackgroundColor: "#ffffff",
+          pointBorderColor: "rgba(255,255,255,.2)",
           lineTension: 0,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           fill: false,
           hidden: true
         },{
-          label: 'Year',
+          label: "Year",
           data: [40, 36, 24, 19, 30, 23],
-          borderColor: '#ffffff',
-          pointBackgroundColor: '#ffffff',
-          pointBorderColor: 'rgba(255,255,255,.2)',
+          borderColor: "#ffffff",
+          pointBackgroundColor: "#ffffff",
+          pointBorderColor: "rgba(255,255,255,.2)",
           lineTension: 0,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           fill: false,
           hidden: true
         }]
       },
       options: {
         hover: {
-          mode: 'index',
+          mode: "index",
           intersect: false
         },
         scales: {
           xAxes: [{
             gridLines: {
-              color: 'rgba(255,255,255,.1)'
+              color: "rgba(255,255,255,.1)"
             },
             ticks: {
-              fontColor: '#ffffff'
+              fontColor: "#ffffff"
             },
           }],
           yAxes: [{
             gridLines: {
-              color: 'rgba(255,255,255,.1)'
+              color: "rgba(255,255,255,.1)"
             },
             ticks: {
-              fontColor: '#ffffff'
+              fontColor: "#ffffff"
             }
           }]
         },
         legendCallback: tabLegendCallback
       }
-    })
-    tabLegendLine.closest('.card-content').before($(tabLegendLineChart.generateLegend()));
+    });
+    tabLegendLine.closest(".card-content").before($(tabLegendLineChart.generateLegend()));
 
 
-    var miniLine = $('#mini-line-chart');
+    var miniLine = $("#mini-line-chart");
     var myMiniLineChart = new Chart(miniLine, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-            label: '',
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: chartColorGreen,
-            borderWidth: 2,
-            pointBackgroundColor: 'inherit',
-            lineTension: 0,
-            pointRadius: 0,
-            pointHoverRadius: 3,
-            fill: 0
+          label: "",
+          data: [12, 19, 3, 5, 2, 3],
+          borderColor: chartColorGreen,
+          borderWidth: 2,
+          pointBackgroundColor: "inherit",
+          lineTension: 0,
+          pointRadius: 0,
+          pointHoverRadius: 3,
+          fill: 0
         }]
       },
       options: flushChartOptions
     });
 
 
-    var miniLine = $('#mini-flush-line-chart');
+    var miniLine = $("#mini-flush-line-chart");
     var miniLineChart = new Chart(miniLine, {
-      type: 'line',
+      type: "line",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-            label: '',
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: chartColorYellow,
-            pointBackgroundColor: chartColorYellow,
-            pointBorderColor: rgbToRgba(chartColorYellow, ".2"),
-            lineTension: 0,
-            fill: 0
+          label: "",
+          data: [12, 19, 3, 5, 2, 3],
+          borderColor: chartColorYellow,
+          pointBackgroundColor: chartColorYellow,
+          pointBorderColor: rgbToRgba(chartColorYellow, ".2"),
+          lineTension: 0,
+          fill: 0
         }]
       },
       options: {
         hover: {
-          mode: 'index',
+          mode: "index",
           intersect: false
         },
         legend: {
@@ -740,32 +740,32 @@ var tabLegendCallback = function(chart) {
 
 
     // Bar chart
-    var barChart = $('#stacked-bar-chart');
+    var barChart = $("#stacked-bar-chart");
     if (barChart.length) {
       var stackedBarChart = new Chart(barChart, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
           datasets: [{
-              label: 'dataset 1',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: chartColorBlue,
-              borderColor: chartColorBlue,
+            label: "dataset 1",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: chartColorBlue,
+            borderColor: chartColorBlue,
           },{
-              label: 'dataset 2',
-              data: [4, 2, 1, 2, 4, 6],
-              backgroundColor: chartColorYellow,
-              borderColor: chartColorYellow,
+            label: "dataset 2",
+            data: [4, 2, 1, 2, 4, 6],
+            backgroundColor: chartColorYellow,
+            borderColor: chartColorYellow,
           },{
-              label: 'dataset 3',
-              data: [5, 10, 8, 7, 4, 9],
-              backgroundColor: chartColorPink,
-              borderColor: chartColorPink,
+            label: "dataset 3",
+            data: [5, 10, 8, 7, 4, 9],
+            backgroundColor: chartColorPink,
+            borderColor: chartColorPink,
           }]
         },
         options: {
           hover: {
-            mode: 'index',
+            mode: "index",
             intersect: false
           },
           scales: {
@@ -776,10 +776,10 @@ var tabLegendCallback = function(chart) {
               }
             }],
             yAxes: [{
-              position: 'right',
+              position: "right",
               stacked: true,
               gridLines: {
-                color: 'rgba(0,0,0,0.08)'
+                color: "rgba(0,0,0,0.08)"
               }
             }]
           },
@@ -792,34 +792,34 @@ var tabLegendCallback = function(chart) {
       display: false,
       stacked: true
     }];
-    var miniBar = $('#mini-stacked-bar-chart');
+    var miniBar = $("#mini-stacked-bar-chart");
     var miniStackedBarChart = new Chart(miniBar, {
-      type: 'bar',
+      type: "bar",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-            label: 'Blue',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: chartColorBlue,
-            borderColor: chartColorBlue,
+          label: "Blue",
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: chartColorBlue,
+          borderColor: chartColorBlue,
         },{
-            label: 'Yellow',
-            data: [4, 2, 1, 2, 4, 6],
-            backgroundColor: chartColorYellow,
-            borderColor: chartColorYellow,
+          label: "Yellow",
+          data: [4, 2, 1, 2, 4, 6],
+          backgroundColor: chartColorYellow,
+          borderColor: chartColorYellow,
         },{
-            label: 'Pink',
-            data: [5, 10, 8, 7, 4, 9],
-            backgroundColor: chartColorPink,
-            borderColor: chartColorPink,
+          label: "Pink",
+          data: [5, 10, 8, 7, 4, 9],
+          backgroundColor: chartColorPink,
+          borderColor: chartColorPink,
         }]
       },
       options: flushStackedChartOptions
     });
 
-    var miniBar = $('#mini-bar-chart');
+    var miniBar = $("#mini-bar-chart");
     var miniBarChart = new Chart(miniBar, {
-      type: 'bar',
+      type: "bar",
       data: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
@@ -833,27 +833,27 @@ var tabLegendCallback = function(chart) {
 
     // Area Charts
     var data = {
-      labels: ['one', 'two', 'three', 'four', 'five'],
+      labels: ["one", "two", "three", "four", "five"],
       datasets: [{
-        backgroundColor: rgbToRgba(chartColorPink, '.25'),
+        backgroundColor: rgbToRgba(chartColorPink, ".25"),
         borderColor: chartColorPink,
         pointBackgroundColor: chartColorPink,
-        pointBorderColor: rgbToRgba(chartColorPink, '.25'),
+        pointBorderColor: rgbToRgba(chartColorPink, ".25"),
         data: [2,4,7,3,8],
-        label: 'D0'
+        label: "D0"
       }, {
-        backgroundColor: rgbToRgba(chartColorBlue, '.25'),
+        backgroundColor: rgbToRgba(chartColorBlue, ".25"),
         borderColor: chartColorBlue,
         pointBackgroundColor: chartColorBlue,
-        pointBorderColor: rgbToRgba(chartColorBlue, '.25'),
+        pointBorderColor: rgbToRgba(chartColorBlue, ".25"),
         data: [9,4,5,1,3],
-        label: 'D1',
+        label: "D1",
       }]
     };
 
-    var $areaChart = $('#area-chart');
+    var $areaChart = $("#area-chart");
     var areaChart = new Chart($areaChart, {
-      type: 'line',
+      type: "line",
       data: data,
       options: areaOptions
     });
@@ -861,40 +861,40 @@ var tabLegendCallback = function(chart) {
 
 
     var data = {
-      labels: ['one', 'two', 'three', 'four', 'five'],
+      labels: ["one", "two", "three", "four", "five"],
       datasets: [{
         backgroundColor: chartColorPink,
         borderColor: chartColorPink,
         data: [2,4,7,3,8],
-        label: 'D0',
+        label: "D0",
         pointHoverRadius: 3,
         pointHoverBorderWidth: 1
       }, {
         backgroundColor: chartColorYellow,
         borderColor: chartColorYellow,
         data: [2,5,5,7,3],
-        label: 'D1',
+        label: "D1",
         pointHoverRadius: 3,
         pointHoverBorderWidth: 1
       }, {
         backgroundColor: chartColorBlue,
         borderColor: chartColorBlue,
         data: [9,4,5,1,3],
-        label: 'D1',
+        label: "D1",
         pointHoverRadius: 3,
         pointHoverBorderWidth: 1
       }]
     };
-    var $flushAreaChart = $('#flush-area-chart');
+    var $flushAreaChart = $("#flush-area-chart");
     var flushAreaChart = new Chart($flushAreaChart, {
-      type: 'line',
+      type: "line",
       data: data,
       options: flushChartOptions
     });
 
-    var miniLineArea = $('#mini-line-area-chart');
+    var miniLineArea = $("#mini-line-area-chart");
     var myMiniLineAreaChart = new Chart(miniLineArea, {
-      type: 'line',
+      type: "line",
       data: data,
       options: flushChartOptions
     });
@@ -906,19 +906,19 @@ var tabLegendCallback = function(chart) {
 
 
     // Doughnut Chart
-    var doughnutChart = $('#doughnut-chart');
+    var doughnutChart = $("#doughnut-chart");
     var doughnutTooltip = Object.assign({}, tooltipsOpts);
     doughnutTooltip.intersect = true;
     doughnutTooltip.callbacks = { footer: percentageFooterCallback };
     delete doughnutTooltip.mode;
 
-    var miniDoughnutChart = $('#mini-doughnut-chart');
+    var miniDoughnutChart = $("#mini-doughnut-chart");
     var miniDoughnutChartJS = new Chart(miniDoughnutChart, {
-      type: 'doughnut',
+      type: "doughnut",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green"],
         datasets: [{
-          label: 'dataset 1',
+          label: "dataset 1",
           data: [12, 19, 3, 5],
           backgroundColor: [chartColorPink, chartColorBlue, chartColorYellow, chartColorGreen],
           borderWidth: 0
@@ -934,22 +934,22 @@ var tabLegendCallback = function(chart) {
     /********************
      *    DataTables    *
      ********************/
-    var table = $('#default-table-example').DataTable({
-      'ajax': 'https://api.myjson.com/bins/1us28',
-      'language': {
-        'search': '',
-        'searchPlaceholder': 'Enter search term'
+    var table = $("#default-table-example").DataTable({
+      "ajax": "https://api.myjson.com/bins/1us28",
+      "language": {
+        "search": "",
+        "searchPlaceholder": "Enter search term"
       },
-      'order': [0, 'asc'],
-      'dom': 'ft<"footer-wrapper"l<"paging-info"ip>>',
-      'scrollY': '400px',
-      'scrollCollapse': true,
-      'pagingType': 'full',
-      'drawCallback': function( settings ) {
+      "order": [0, "asc"],
+      "dom": "ft<\"footer-wrapper\"l<\"paging-info\"ip>>",
+      "scrollY": "400px",
+      "scrollCollapse": true,
+      "pagingType": "full",
+      "drawCallback": function( settings ) {
         var api = this.api();
 
         // Add waves to pagination buttons
-        $(api.table().container()).find('.paginate_button').addClass('waves-effect');
+        $(api.table().container()).find(".paginate_button").addClass("waves-effect");
 
         api.table().columns.adjust();
       }
@@ -966,100 +966,100 @@ var tabLegendCallback = function(chart) {
     todaysDate.setDate(todaysDate.getDate() - 3);
     var threeDaysAgo = todaysDate.toISOString().substr(0,10);
     var eventData = [
-        {
-          title: 'All Day Event',
-          start: today
-        },
-        {
-          title: 'Long Event',
-          start: threeDaysAgo,
-          end: today
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: today + 'T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: today + 'T16:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: today + 'T10:30:00',
-          end: today + 'T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: today + 'T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: today + 'T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: today + 'T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: today + 'T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: tomorrow + 'T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: today
-        }
-      ];
-    $('#calendar').fullCalendar({
+      {
+        title: "All Day Event",
+        start: today
+      },
+      {
+        title: "Long Event",
+        start: threeDaysAgo,
+        end: today
+      },
+      {
+        id: 999,
+        title: "Repeating Event",
+        start: today + "T16:00:00"
+      },
+      {
+        id: 999,
+        title: "Repeating Event",
+        start: today + "T16:00:00"
+      },
+      {
+        title: "Meeting",
+        start: today + "T10:30:00",
+        end: today + "T12:30:00"
+      },
+      {
+        title: "Lunch",
+        start: today + "T12:00:00"
+      },
+      {
+        title: "Meeting",
+        start: today + "T14:30:00"
+      },
+      {
+        title: "Happy Hour",
+        start: today + "T17:30:00"
+      },
+      {
+        title: "Dinner",
+        start: today + "T20:00:00"
+      },
+      {
+        title: "Birthday Party",
+        start: tomorrow + "T07:00:00"
+      },
+      {
+        title: "Click for Google",
+        url: "http://google.com/",
+        start: today
+      }
+    ];
+    $("#calendar").fullCalendar({
       header: {
-        left: 'prev,next,title',
-        right: 'month,agendaWeek,agendaDay'
+        left: "prev,next,title",
+        right: "month,agendaWeek,agendaDay"
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: eventData,
       views: {
         agendaWeek: {
-          columnFormat: 'DD'
+          columnFormat: "DD"
         }
       }
-    })
-    $('#calendar-week').fullCalendar({
+    });
+    $("#calendar-week").fullCalendar({
       header: {
-        right: 'month,agendaWeek,agendaDay'
+        right: "month,agendaWeek,agendaDay"
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: eventData,
-      defaultView: 'agendaWeek',
+      defaultView: "agendaWeek",
       views: {
         agendaWeek: {
-          columnFormat: 'DD'
+          columnFormat: "DD"
         }
       }
-    })
-    $('#calendar-list').fullCalendar({
+    });
+    $("#calendar-list").fullCalendar({
       header: {
-        left: 'today,prev,next,title',
-        right: ''
+        left: "today,prev,next,title",
+        right: ""
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: eventData,
-      defaultView: 'listMonth',
+      defaultView: "listMonth",
       views: {
         list: {
-          listDayFormat: 'ddd',
-          listDayAltFormat: 'MMM D',
+          listDayFormat: "ddd",
+          listDayAltFormat: "MMM D",
         }
       }
-    })
+    });
 
 
   });

@@ -1,28 +1,28 @@
 (function ($) {
   $(document).ready(function(){
 
-    var barChart = $('#percentage-bar-chart');
+    var barChart = $("#percentage-bar-chart");
     if (barChart.length) {
       var percbarTooltip = Object.assign({}, tooltipsOpts);
-      percbarTooltip.mode = 'nearest';
+      percbarTooltip.mode = "nearest";
       percbarTooltip.intersect = true;
       percbarTooltip.callbacks = { footer: percentageStackedFooterCallback };
 
       var percBarChart = new Chart(barChart, {
-        type: 'horizontalBar',
+        type: "horizontalBar",
         data: {
           datasets: [{
-              label: 'dataset 1',
-              data: [23],
-              backgroundColor: chartColorBlue,
+            label: "dataset 1",
+            data: [23],
+            backgroundColor: chartColorBlue,
           },{
-              label: 'dataset 2',
-              data: [10],
-              backgroundColor: chartColorYellow,
+            label: "dataset 2",
+            data: [10],
+            backgroundColor: chartColorYellow,
           },{
-              label: 'dataset 3',
-              data: [5],
-              backgroundColor: chartColorPink,
+            label: "dataset 3",
+            data: [5],
+            backgroundColor: chartColorPink,
           }]
         },
         options: {

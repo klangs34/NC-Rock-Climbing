@@ -50,9 +50,9 @@ module.exports = function (sequelize, DataTypes) {
 
   Routes.associate = function(models) {
     Routes.belongsTo(models.User, {
-    foreignKey: "user_id",
-    onDelete: "cascade"
-  })
+      foreignKey: "user_id",
+      onDelete: "cascade"
+    });
   };
   return Routes;
 };

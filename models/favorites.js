@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 // Creating our routes model
 module.exports = function (sequelize, DataTypes) {
-  var Favorites = sequelize.define("Favorites", {    
+  var Favorites = sequelize.define("Favorites", {
   });
   Favorites.associate = function(models) {
     Favorites.belongsTo(models.Routes, {
@@ -16,6 +16,6 @@ module.exports = function (sequelize, DataTypes) {
       onDelete: "cascade",
       allowNull: true
     });
-  }
+  };
   return Favorites;
 };
