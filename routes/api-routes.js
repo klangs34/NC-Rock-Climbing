@@ -163,7 +163,7 @@ module.exports = app => {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", passport.authenticate("local"), function(req, res) {
+  app.get("/api/user_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -171,11 +171,11 @@ module.exports = app => {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       //send back reviews, favorites, routes climbed 
-      db.User.findAll({
+      db.Routes.findAll({
         where: {
-          id: req.user.id
+          user_id: req.user.id
         },
-        include: [db.Reviews, db.Favorites, db.RoutesClimbed]
+        include: [db.User]
       }).then(function(userData) {
         res.json(userData);
       });
@@ -203,8 +203,8 @@ module.exports = app => {
     axios.get(mapURL).then(data => {
       const latitude = data.data.candidates[0].geometry.location.lat;
       const longitude = data.data.candidates[0].geometry.location.lng;
-      console.log(latitude);
-      console.log(longitude);
+      //console.log(latitude);
+      //console.log(longitude);
       const mountainURL = `https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${latitude}&lon=${longitude}&maxDistance=20&maxResults=20&key=${mountainAPIKey}`;
       
       axios.get(mountainURL).then(data => {
@@ -224,7 +224,7 @@ module.exports = app => {
         });
 
         //initMap(latitude, longitude, routes)
-        console.log(routes);
+        //console.log(routes);
         res.json({routes, latitude, longitude});
       });
     });
