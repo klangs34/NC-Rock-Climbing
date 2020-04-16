@@ -8,5 +8,5 @@ The approach was to implement a simple MVC (model, views and controllers) applic
 # Technology
 The backend server is built on Express server and uses the Passport library to handle user authentication.  The Handlebars library is used to render dynamic html pages that are requested by the client.  The server also serves a REST server for data stored and retrieved from the database, which uses the Sequelize library.  Finally, the Passport library is implemented to handle user authentication
 
-The frontend heavily relies on Javascript API calls to the server for content.  Also implemented is Google Maps' third party API, which pinpoints GPS coordinates of searched cities
+The frontend heavily relies on Javascript API calls to the REST server for content.  Also implemented is Google Maps' third party API, which pinpoints GPS coordinates of searched cities and provides a nice visual image of the geolocation.
 
