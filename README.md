@@ -1,7 +1,7 @@
 # North Carolina Rock Climbing
 This project was created for the avid rock climbers looking for rock climbing sites in the state of North Carolina.  Visitors are able to first signup and then log into to the site to search for sites in or around a given city.  The search results will yield reported climbing sites within a 20 mile radius of the searched city.  The user is provided value information about the site and able to mark as a favorite for future reference.  Also, sved sites are not returned in a subsequent search within that same city.  
 
-You can visit the site [here][https://shrouded-cliffs-15806.herokuapp.com/].
+You can visit the site [here](https://shrouded-cliffs-15806.herokuapp.com/).
 
 The approach was to implement a simple MVC (model, views and controllers) application where each project member could work on a specific section or function of the site independently.
 
