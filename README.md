@@ -12,3 +12,13 @@ The backend server is built on Express server and uses the Passport library to h
 
 The frontend heavily relies on Javascript API calls to the REST server for content.  Also implemented is Google Maps' third party API, which pinpoints GPS coordinates of searched cities and provides a nice visual image of the geolocation.
 
+# To use:
+1. Feel free to create an account
+
+1. Otherwise, click login at the signup page
+
+1. use the following credentials:
+  email: testing@test.com
+  password: test123
+  
+ 1. search cities for rock climbing sites!
