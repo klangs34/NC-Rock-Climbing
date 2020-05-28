@@ -22,3 +22,8 @@ The frontend heavily relies on Javascript API calls to the REST server for conte
   password: test123
   
  1. search cities for rock climbing sites!
+
+## Collaborators:
+1. Jack Storement
+1. William Vaughn
+1. Raymond Lee
